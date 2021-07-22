@@ -2,8 +2,6 @@
 # -*-coding:Utf-8 -*
 
 from selenium import webdriver
-import requests
-from os import mkdir, path, system
 import modules
 
 x = 0
@@ -14,7 +12,7 @@ brave_path = "/usr/bin/brave-browser"
 option = webdriver.ChromeOptions()
 option.binary_location = brave_path
 option.add_argument("--lang = fr")
-#option.add_argument("--headless")
+option.add_argument("--headless")
 
 browser = webdriver.Chrome(executable_path=driver_path, chrome_options=option, )
 

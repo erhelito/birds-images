@@ -39,35 +39,34 @@ def url_sorting() :
     return sorted_urls
 
 def information_file_and_image(browser, article_url) :
-    name = browser.find_element_by_class_name("titre")
-    name = name.text
 
-    print(name)
+    try :
+        name = browser.find_element_by_class_name("titre")
+        name = name.text
+        print(name)
+    except :
+        print("Can't find the name")
 
-    order = browser.find_element_by_class_name("order")
-    order = order.text
-
-    description = browser.find_element_by_xpath('//*[@id="description-esp"]/div/p')
-    description = description.text
-
-    data = browser.find_elements_by_class_name("on_bio_titre")
-    data = data[2]
-    data = data.text
-
-    image_url = browser.find_element_by_class_name("on_img_id")
-    image_url = image_url.get_attribute("src")
-    image_url = get(image_url)
+    try :
+        order = browser.find_element_by_class_name("order")
+        order = order.text
+    except :
+        print("Can't find the order")
 
     if path.exists(order) is False :
         mkdir(order)
 
-    image = open(f"{order}/{name}.jpeg", "wb")
-    image.write(image_url.content)
-    image.close()
+    try :
+        description = browser.find_element_by_xpath('//*[@id="description-esp"]/div/p')
+        description = description.text
 
-    description_file = open(f"{order}/{name}.txt", "w")
-    description_file.write(
-        f"""Nom : {name}
+        data = browser.find_elements_by_class_name("on_bio_titre")
+        data = data[2]
+        data = data.text
+
+        description_file = open(f"{order}/{name}.txt", "w")
+        description_file.write(
+            f"""Nom : {name}
 Ordre : {order}
 
 {data}
@@ -75,6 +74,23 @@ Ordre : {order}
 Description : {description}
 
 URL de l'article pour plus d'informations : {article_url}"""
-    )
+        )
+
+    except :
+        print("Can't find the description")
+
+
+
+    try :
+        image_url = browser.find_element_by_class_name("on_img_id")
+        image_url = image_url.get_attribute("src")
+        image_url = get(image_url)
+
+        image = open(f"{order}/{name}.jpeg", "wb")
+        image.write(image_url.content)
+        image.close()
+    except :
+        print("Can't find an image")
+
 
     print("Done")
