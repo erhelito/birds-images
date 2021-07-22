@@ -4,8 +4,6 @@
 from selenium import webdriver
 import modules
 
-x = 0
-
 driver_path = "/usr/bin/chromedriver"
 brave_path = "/usr/bin/brave-browser"
 
