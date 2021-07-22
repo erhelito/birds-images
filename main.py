@@ -25,7 +25,7 @@ cookies.click()
 birds_list = browser.find_elements_by_xpath('//*[@id="oiseaux"]/div/div/div[1]/div[2]/table/tbody/tr/td/a')
 
 modules.url_recovering(birds_list)
-modules.url_sorting()
+urls = modules.url_sorting()
 
 for i in range(len(birds_list)) :
     print("{0}/{1}".format(i+1, len(birds_list)))

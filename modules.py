@@ -14,6 +14,21 @@ def url_recovering(list) :
         url_list.write("\n")
 
 def url_sorting() :
+    j = ""
+    useless_url = "https://www.oiseaux.net/oiseaux/\n"
+
     file = open("url_list.txt", "r")
     urls = file.readlines()
+    file.close()
     remove("url_list.txt")
+
+    for i in urls :
+        if i == useless_url :
+            urls.remove(i)
+
+        elif i == j:
+            urls.remove(i)
+            
+        j = i
+
+    return urls
