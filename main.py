@@ -26,6 +26,16 @@ birds_list = browser.find_elements_by_xpath('//*[@id="oiseaux"]/div/div/div[1]/d
 modules.url_recovering(birds_list)
 urls = modules.url_sorting()
 
+
 for i in urls:
     browser.get(i)
-    modules.information_file_and_image(browser, i)
+    name = modules.find_name(browser)
+    print(name)
+    order = modules.find_order(browser)
+    description = modules.find_description(browser)
+    data = modules.find_data(browser)
+    modules.create_directory_if_necessary(order)
+    modules.create_description_file(name, order, data, description, i)
+    modules.create_image_file(browser, order, name)
+
+    print("Done")
