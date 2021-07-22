@@ -61,7 +61,7 @@ def information_file_and_image(browser, article_url) :
     if path.exists(order) is False :
         mkdir(order)
 
-    image = open(f"{order}/{name}.png", "wb")
+    image = open(f"{order}/{name}.jpeg", "wb")
     image.write(image_url.content)
     image.close()
 
