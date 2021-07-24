@@ -1,8 +1,9 @@
 #!/usr/bin/python3.8
 # -*-coding:Utf-8 -*
 
-from os import remove, path, mkdir
+from os import remove, path, mkdir, listdir
 from requests import get
+from shutil import copyfile
 
 def url_recovering(list) :
     url_list = open("url_list.txt", "w")
@@ -102,11 +103,16 @@ Description : {description}
 URL de l'article pour plus d'informations : {url}"""
 )
 
+<<<<<<< HEAD
     except :
         print("Error while creating the description file")
 
 def create_image_file(browser, order, name, url):
     try :
+=======
+def create_image_file(browser, order, name) :
+    try:
+>>>>>>> 97b3bf6aa979773a7550d902456e39f207e78e6b
         image_url = browser.find_element_by_class_name("on_img_id")
         image_url = image_url.get_attribute("src")
         image_url = get(image_url)
@@ -117,5 +123,35 @@ def create_image_file(browser, order, name, url):
     except :
         print("Can't find an image")
 
+<<<<<<< HEAD
         with open("errors.txt", "a") as error_logs:
             error_logs.write(f"{url}, image\n")
+=======
+def fetch_orders() :
+    files = listdir()
+    orders_list = []
+
+    for i in files :
+        file = "." not in i
+
+        if file :
+            orders_list.append(i)
+
+    return orders_list
+
+def create_images_for_orders(orders_list):
+    for i in orders_list:
+
+        x = 0
+
+        files_in_folder = listdir(i)
+
+        try :
+            while (files_in_folder[x])[-5:] != ".jpeg" :
+                x += 1
+            
+            copyfile(f"{i}/{files_in_folder[x]}", f"{i}.jpeg")
+
+        except :
+            ""
+>>>>>>> 97b3bf6aa979773a7550d902456e39f207e78e6b
