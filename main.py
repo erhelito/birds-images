@@ -37,3 +37,6 @@ for i in urls:
     modules.create_image_file(browser, order, name)
 
     print("Done")
+
+orders_list = modules.fetch_orders()
+modules.create_images_for_orders(orders_list)
