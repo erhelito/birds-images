@@ -103,16 +103,11 @@ Description : {description}
 URL de l'article pour plus d'informations : {url}"""
 )
 
-<<<<<<< HEAD
     except :
         print("Error while creating the description file")
-
-def create_image_file(browser, order, name, url):
-    try :
-=======
-def create_image_file(browser, order, name) :
+        
+def create_image_file(browser, order, name, url) :
     try:
->>>>>>> 97b3bf6aa979773a7550d902456e39f207e78e6b
         image_url = browser.find_element_by_class_name("on_img_id")
         image_url = image_url.get_attribute("src")
         image_url = get(image_url)
@@ -123,10 +118,9 @@ def create_image_file(browser, order, name) :
     except :
         print("Can't find an image")
 
-<<<<<<< HEAD
         with open("errors.txt", "a") as error_logs:
             error_logs.write(f"{url}, image\n")
-=======
+
 def fetch_orders() :
     files = listdir()
     orders_list = []
@@ -154,4 +148,3 @@ def create_images_for_orders(orders_list):
 
         except :
             ""
->>>>>>> 97b3bf6aa979773a7550d902456e39f207e78e6b
