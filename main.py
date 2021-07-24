@@ -7,6 +7,9 @@ import modules
 driver_path = "/usr/bin/chromedriver"
 brave_path = "/usr/bin/brave-browser"
 
+error_logs = open("errors.txt", "w")
+error_logs.close()
+
 option = webdriver.ChromeOptions()
 option.binary_location = brave_path
 option.add_argument("--lang = fr")
@@ -27,13 +30,13 @@ urls = modules.url_sorting()
 
 for i in urls:
     browser.get(i)
-    name = modules.find_name(browser)
+    name = modules.find_name(browser, i)
     print(name)
-    order = modules.find_order(browser)
-    description = modules.find_description(browser)
-    data = modules.find_data(browser)
+    order = modules.find_order(browser, i)
+    description = modules.find_description(browser, i)
+    data = modules.find_data(browser, i)
     modules.create_directory_if_necessary(order)
     modules.create_description_file(name, order, data, description, i)
-    modules.create_image_file(browser, order, name)
+    modules.create_image_file(browser, order, name, i)
 
     print("Done")

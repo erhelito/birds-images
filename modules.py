@@ -31,50 +31,67 @@ def url_sorting():
 
     return [i[0:-1] for i in urls]
 
-def find_name(browser) :
-    try :
+def find_name(browser, url):
+    try:
         name = browser.find_element_by_class_name("titre")
         name = name.text
 
         return name
-    except :
+    except:
         print("Can't find the name")
 
-def find_order(browser) :
-    try :
+        with open("errors.txt", "a") as error_logs:
+            error_logs.write(f"{url}, name\n")
+
+def find_order(browser, url):
+    try:
         order = browser.find_element_by_class_name("order")
         order = order.text
 
         return order
-    except :
+    except:
         print("Can't find the order")
 
-def find_description(browser) :
-    try :
+        with open("errors.txt", "a") as error_logs:
+            error_logs.write(f"{url}, order")
+
+def find_description(browser, url):
+    try:
         description = browser.find_element_by_xpath('//*[@id="description-esp"]/div/p')
         description = description.text
 
         return description
-    except :
+    except:
         print("Can't find the description")
 
-def find_data(browser) :
-    try :
+        with open("errors.txt", "a") as error_logs:
+            error_logs.write(f"{url}, description\n")
+
+def find_data(browser, url):
+    try:
         data = browser.find_elements_by_class_name("on_bio_titre")
         data = data[2]
         data = data.text
 
         return data
-    except :
+    except:
         print("Can't find the data")
 
-def create_directory_if_necessary(order) :
-    if path.exists(order) is False :
-        mkdir(order)
+        with open("errors.txt", "a") as error_logs:
+            error_logs.write(f"{url}, data\n")
 
-def create_description_file(name, order, data, description, article_url) :
-    description_file = open(f"{order}/{name}.txt", "w")
-    description_file.write(
+def create_directory_if_necessary(order) :
+    try :
+        if path.exists(order) is False :
+            mkdir(order)
+
+    except :
+        print("Error while creating the folder\n")
+
+def create_description_file(name, order, data, description, url) :
+    try :
+        description_file = open(f"{order}/{name}.txt", "w")
+        description_file.write(
         f"""Nom : {name}
 Ordre : {order}
 
@@ -82,16 +99,23 @@ Ordre : {order}
 
 Description : {description}
 
-URL de l'article pour plus d'informations : {article_url}"""
+URL de l'article pour plus d'informations : {url}"""
 )
 
-def create_image_file(browser, order, name):
-    try:
+    except :
+        print("Error while creating the description file")
+
+def create_image_file(browser, order, name, url):
+    try :
         image_url = browser.find_element_by_class_name("on_img_id")
         image_url = image_url.get_attribute("src")
         image_url = get(image_url)
 
         with open(f"{order}/{name}.jpeg", "wb") as image:
             image.write(image_url.content)
+            
     except :
         print("Can't find an image")
+
+        with open("errors.txt", "a") as error_logs:
+            error_logs.write(f"{url}, image\n")
